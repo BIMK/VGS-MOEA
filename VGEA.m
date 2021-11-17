@@ -395,7 +395,7 @@ Hb = sum(sum(-p(index).*log(p(index))));
 mi = Ha+Hb-Hab;
 
 %计算a和b的归一化互信息
-mi = hab/(Ha+Hb);
+mi = 2 * mi /(Ha+Hb);
 end
 
 function v = getVar(data)
