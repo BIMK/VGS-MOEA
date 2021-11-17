@@ -9,7 +9,6 @@ dataNames = {'SRBCT'};
 k = 10;
 
 for dataName = dataNames
-    
 	disp(dataName);
 
 	load(dataName{1});
@@ -27,7 +26,6 @@ for dataName = dataNames
 		disp(['K Fold ', int2str(i)]);
 % 		crossvalid
 		testIdx = indices == i;
-
 		trainIdx = ~testIdx;
 		testData = data(testIdx, :);
 		testLabel = label(testIdx, :);
