@@ -43,11 +43,6 @@ for dataName = dataNames
 		
 		accTr = 1 - errTr;
 
-		% Calculate Test Accuracy
-		accTe = zeros(size(x, 1), 1);
-		for j = 1 : size(x, 1)
-			accTe(j) = testAcc(trainData, trainLabel, testData, testLabel, x(j, :));
-		end
-		save(strcat('result-', dataName{1}, '-', num2str(i)), 'x', 'errTr', 'selFeatNum', 'accTr', 'accTe', 'time');
+		save(strcat('result-', dataName{1}, '-', num2str(i)), 'x', 'errTr', 'selFeatNum', 'accTr', 'time');
 	end
 end
