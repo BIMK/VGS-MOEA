@@ -5,12 +5,13 @@ function [pfs, errTr, selFeatNum] = VGEA(data, label, dataName, fold)
 	maxIt = 100;		% the max number of iterations
 	maxIt2 = 10;		% the value of alpha
 	popNum = 100;		% poplation size
-	archiveNum = popNum;
+
+	groupNum = round(10 * log2(featNum));	% the value of k
 
 	archive = [];
 	archiveObjs = [];
-
-	groupNum = round(10 * log2(featNum));
+	archiveNum = popNum;
+	
 	firstStageEnd = maxIt2 * floor(log2(featNum / groupNum) + 1);
  
 	% group
@@ -335,18 +336,18 @@ end
 function [mi, Ha] = MItest(a,b)
 %culate MI of a and b in the region of the overlap part
 
-%¼ÆËãÖØµş²¿·Ö
+%è®¡ç®—é‡å éƒ¨åˆ†
 [Ma,Na] = size(a);
 [Mb,Nb] = size(b);
 M=min(Ma,Mb);
 N=min(Na,Nb);
 
-%³õÊ¼»¯Ö±·½Í¼Êı×é
+%åˆå§‹åŒ–ç›´æ–¹å›¾æ•°ç»„
 hab = zeros(256,256);
 ha = zeros(1,256);
 hb = zeros(1,256);
 
-%¹éÒ»»¯
+%å½’ä¸€åŒ–
 if max(max(a))~=min(min(a))
     a = (a-min(min(a)))/(max(max(a))-min(min(a)));
 else
@@ -362,39 +363,39 @@ end
 a = double(int16(a*255))+1;
 b = double(int16(b*255))+1;
 
-%Í³¼ÆÖ±·½Í¼
+%ç»Ÿè®¡ç›´æ–¹å›¾
 for i=1:M
     for j=1:N
        indexx =  a(i,j);
        indexy = b(i,j) ;
-       hab(indexx,indexy) = hab(indexx,indexy)+1;%ÁªºÏÖ±·½Í¼
-       ha(indexx) = ha(indexx)+1;%aÍ¼Ö±·½Í¼
-       hb(indexy) = hb(indexy)+1;%bÍ¼Ö±·½Í¼
+       hab(indexx,indexy) = hab(indexx,indexy)+1;%è”åˆç›´æ–¹å›¾
+       ha(indexx) = ha(indexx)+1;%aå›¾ç›´æ–¹å›¾
+       hb(indexy) = hb(indexy)+1;%bå›¾ç›´æ–¹å›¾
    end
 end
 
-%¼ÆËãÁªºÏĞÅÏ¢ìØ
+%è®¡ç®—è”åˆä¿¡æ¯ç†µ
 hsum = sum(sum(hab));
 index = find(hab~=0);
 p = hab/hsum;
 Hab = sum(sum(-p(index).*log(p(index))));
 
-%¼ÆËãaÍ¼ĞÅÏ¢ìØ
+%è®¡ç®—aå›¾ä¿¡æ¯ç†µ
 hsum = sum(sum(ha));
 index = find(ha~=0);
 p = ha/hsum;
 Ha = sum(sum(-p(index).*log(p(index))));
 
-%¼ÆËãbÍ¼ĞÅÏ¢ìØ
+%è®¡ç®—bå›¾ä¿¡æ¯ç†µ
 hsum = sum(sum(hb));
 index = find(hb~=0);
 p = hb/hsum;
 Hb = sum(sum(-p(index).*log(p(index))));
 
-%¼ÆËãaºÍbµÄ»¥ĞÅÏ¢
+%è®¡ç®—aå’Œbçš„äº’ä¿¡æ¯
 mi = Ha+Hb-Hab;
 
-%¼ÆËãaºÍbµÄ¹éÒ»»¯»¥ĞÅÏ¢
+%è®¡ç®—aå’Œbçš„å½’ä¸€åŒ–äº’ä¿¡æ¯
 mi = 2 * mi /(Ha+Hb);
 end
 
