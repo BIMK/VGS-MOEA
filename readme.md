@@ -1,6 +1,6 @@
 # VGS-MOEA
 
-the code of "A Variable Granularity Search Based Multi-Objective Feature Selection Algorithm for High-Dimensional Data Classification "
+the code of "A Variable Granularity Search Based Multi-Objective Feature Selection Algorithm for High-Dimensional Data Classification (IEEE Transactions on Evolutionary Computation) doi: https://doi.org/10.1109/TEVC.2022.3160458" 
 
 - VGEA.m: the code of algorithm.
 
